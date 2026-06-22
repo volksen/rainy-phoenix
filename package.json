@@ -1,19 +1,19 @@
 {
-    "author": "astosia",
+    "author": "volksen",
     "dependencies": {
         "pebble-clay": "^1.0.4",
         "pebble-fctx": "^1.6.3",
         "pebble-fctx-compiler": "^1.2.2"
     },
     "keywords": [],
-    "name": "phoenix-big",
+    "name": "my-phoenix-big",
     "pebble": {
         "capabilities": [
             "location",
             "configurable",
             "health"
         ],
-        "displayName": "phoenix big",
+        "displayName": "my phoenix big",
         "enableMultiJS": true,
         "messageKeys": [
             "Back1Color",
@@ -97,9 +97,9 @@
         "resources": {
             "media": [
                 {
+                    "characterRegex": "[z\ue061]",
                     "file": "fonts/dripicons-v2.ttf",
                     "name": "FONT_DRIPICONS_16",
-                    "characterRegex": "[z]",
                     "targetPlatforms": [
                         "aplite",
                         "basalt",
@@ -109,9 +109,9 @@
                     "type": "font"
                 },
                 {
+                    "characterRegex": "[z\ue061]",
                     "file": "fonts/dripicons-v2.ttf",
                     "name": "FONT_DRIPICONS_18",
-                    "characterRegex": "[z]",
                     "targetPlatforms": [
                         "emery"
                     ],
@@ -178,10 +178,10 @@
             "diorite",
             "emery"
         ],
-        "uuid": "35f12dab-4433-42ab-89c4-dda6d10ef636",
+        "uuid": "d789d703-4ad8-46e0-a731-33556cfef141",
         "watchapp": {
             "watchface": true
         }
     },
-    "version": "4.2.0"
+    "version": "0.0.2"
 }

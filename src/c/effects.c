@@ -292,7 +292,7 @@ void effect_invert_brightness(GContext* ctx,  GRect position, void* param) {
   bitmap_info.bitmap_format = gbitmap_get_format(fb);
 
   GColor pixel;
-  GColor pixel_new;
+  GColor pixel_new=GColorCeleste;
   
   for (int y = 0; y < position.size.h; y++) {
      for (int x = 0; x < position.size.w; x++) {
@@ -548,7 +548,7 @@ void effect_zoom(GContext* ctx,  GRect position, void* param){
   ratioY= (int32_t)param >>8 & 0xFF;
   ratioX= (int32_t)param & 0xFF;
 
-  for (int y = 0; y <= position.size.h>>1; y++)
+  for (int y = 0; y <= position.size.h>>1; y++) {
     for (int x = 0; x <= position.size.w>>1; x++)
     {
       //yS,xS scan source: centre to out or out to centre
@@ -561,6 +561,7 @@ void effect_zoom(GContext* ctx,  GRect position, void* param){
       set_pixel(bitmap_info, yCn -yS, xCn +xS, get_pixel(bitmap_info, yCn -Y1, xCn +X1));
       set_pixel(bitmap_info, yCn -yS, xCn -xS, get_pixel(bitmap_info, yCn -Y1, xCn -X1));
     }
+  }
   graphics_release_frame_buffer(ctx, fb);
 //Todo: Should probably reduce Y size on zoom out or limit reading beyond edge of screen.
 }
@@ -588,8 +589,8 @@ void effect_lens(GContext* ctx,  GRect position, void* param){
   float focal =   (int32_t)param >>8 & 0xFF;// focal point of lens
   float obj_dis = (int32_t)param & 0xFF;//distance of object from focal point.
   
-  for (int y = r; y >= 0; --y)
-    for (int x = r; x >= 0; --x)
+  for (int y = r; y >= 0; --y){
+    for (int x = r; x >= 0; --x){
       if (x*x+y*y < r*r)
       {
         int Y1= my_tan(my_asin(y/focal))*obj_dis;
@@ -599,6 +600,8 @@ void effect_lens(GContext* ctx,  GRect position, void* param){
         set_pixel(bitmap_info, yCn -y, xCn +x, get_pixel(bitmap_info, yCn -Y1, xCn +X1));
         set_pixel(bitmap_info, yCn -y, xCn -x, get_pixel(bitmap_info, yCn -Y1, xCn -X1));
       }
+    }
+  }
     graphics_release_frame_buffer(ctx, fb);
 //Todo: Change to lock-up arcsin table in the future. (Currently using floating point math library that is relatively big & slow)
 }
