@@ -387,12 +387,12 @@ function fetchWeatherData(pos) {
 
             // Current precipitation data (next hour)
             var current_precip_amount = json.current.precipitation !== null ? json.current.precipitation.toFixed(1) : "0.0";
-            var current_precip_prob = json.current.precipitation_probability !== null ? json.current.precipitation_probability : 0;
+            var current_precip_prob = json.current.precipitation_probability !== null ? Math.round(json.current.precipitation_probability) : 0;
 
             // Daily precipitation data
             var daily_precip_sum = json.daily.precipitation_sum[0] !== null ? json.daily.precipitation_sum[0].toFixed(1) : "0.0";
             var daily_precip_hours = json.daily.precipitation_hours[0] !== null ? json.daily.precipitation_hours[0].toFixed(1) : "0.0";
-            var daily_precip_prob_max = json.daily.precipitation_probability_max[0] !== null ? json.daily.precipitation_probability_max[0] : 0;
+            var daily_precip_prob_max = json.daily.precipitation_probability_max[0] !== null ? Math.round(json.daily.precipitation_probability_max[0]) : 0;
 
             console.log(weatherprov);
             console.log(weather_time);
