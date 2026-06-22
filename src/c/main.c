@@ -412,10 +412,10 @@ static void display_precip_amount() {
 
 
 static void health_handler(HealthEventType event, void *context) {
-  
+
    if(event != HealthEventSleepUpdate) {
      get_step_count();
-     display_step_count();
+     display_precip_amount();
    }
 }
 
@@ -1045,7 +1045,7 @@ Tuple * disntheme_t = dict_find(iter, MESSAGE_KEY_NightTheme);
       settings.HealthOff = false;
       APP_LOG(APP_LOG_LEVEL_DEBUG, "Health on");
       get_step_count();
-      display_step_count();
+      display_precip_amount();
     } else {
       settings.HealthOff = true;
       APP_LOG(APP_LOG_LEVEL_DEBUG, "Health off");
@@ -1262,9 +1262,9 @@ static void tick_handler(struct tm * time_now, TimeUnits changed){
     // 1. Fetch the latest count from the Health Service
     get_step_count();
     // 2. Refresh the display layer
-    display_step_count();
+    display_precip_amount();
 
-    
+
   }
 
   s_loop = 0;
