@@ -368,7 +368,7 @@ function fetchWeatherData(pos) {
 
     if (weatherprov === 'ds') { // Open-Meteo
         url = "https://api.open-meteo.com/v1/forecast?latitude=" + lat + "&longitude=" + lon +
-            "&models=best_match&daily=weather_code,temperature_2m_max,temperature_2m_min,sunrise,sunset,uv_index_max,precipitation_sum,precipitation_hours,precipitation_probability_mean&current=temperature_2m,precipitation,weather_code,is_day&forecast_days=1&timeformat=unixtime";
+            "&daily=precipitation_sum,precipitation_hours,precipitation_probability_max,temperature_2m_max,temperature_2m_min,weather_code&current=weather_code,precipitation,precipitation_probability,temperature_2m,is_day&timezone=auto&forecast_days=1&timeformat=unixtime";
         parseFunc = function(json) {
             var tempf = Math.round((json.current.temperature_2m * 9/5) + 32);
             var tempc = Math.round(json.current.temperature_2m);
@@ -385,19 +385,35 @@ function fetchWeatherData(pos) {
             var aux_time = new Date(json.current.time * 1000);
             var weather_time = aux_time.getHours() * 100 + aux_time.getMinutes();
 
+            // Current precipitation data (next hour)
+            var current_precip_amount = json.current.precipitation !== null ? json.current.precipitation.toFixed(1) : "0.0";
+            var current_precip_prob = json.current.precipitation_probability !== null ? json.current.precipitation_probability : 0;
+
+            // Daily precipitation data
+            var daily_precip_sum = json.daily.precipitation_sum[0] !== null ? json.daily.precipitation_sum[0].toFixed(1) : "0.0";
+            var daily_precip_hours = json.daily.precipitation_hours[0] !== null ? json.daily.precipitation_hours[0].toFixed(1) : "0.0";
+            var daily_precip_prob_max = json.daily.precipitation_probability_max[0] !== null ? json.daily.precipitation_probability_max[0] : 0;
+
             console.log(weatherprov);
             console.log(weather_time);
             console.log(temp);
             console.log(icon_now);
             console.log(highlow);
-            console.log(forecast_icon);         
+            console.log(forecast_icon);
+            console.log("Current Precip: " + current_precip_amount + "mm, Prob: " + current_precip_prob + "%");
+            console.log("Daily Precip: " + daily_precip_sum + "mm, Hours: " + daily_precip_hours + "h, Max Prob: " + daily_precip_prob_max + "%");
 
             return {
-                "WeatherTemp": temp, 
+                "WeatherTemp": temp,
                 "IconNow": icon_now,
                 "Weathertime": weather_time,
-                "IconFore": forecast_icon, 
-                "TempFore": highlow
+                "IconFore": forecast_icon,
+                "TempFore": highlow,
+                "PrecipAmount": current_precip_amount,
+                "PrecipProb": current_precip_prob,
+                "DailyPrecipSum": daily_precip_sum,
+                "DailyPrecipHours": daily_precip_hours,
+                "DailyPrecipProbMax": daily_precip_prob_max
             };
         };
 
