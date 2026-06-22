@@ -594,7 +594,7 @@ static void layer_update_proc(Layer * layer, GContext * ctx){
 #if defined(PBL_PLATFORM_EMERY)
    GRect DateRect  = GRect(100, 128, 50, 22);
    GRect DateRect2 = GRect(100, 148, 48, 54);
-   GRect BatteryRect = GRect(100, 205, 50, 27);
+   GRect PrecipProbRect = GRect(100, 205, 50, 27);
 
 #else
 

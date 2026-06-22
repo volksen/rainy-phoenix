@@ -86,7 +86,12 @@
             "Text7Color",
             "Text7ColorN",
             "Text8Color",
-            "Text8ColorN"
+            "Text8ColorN",
+            "PrecipAmount",
+            "PrecipProb",
+            "DailyPrecipSum",
+            "DailyPrecipHours",
+            "DailyPrecipProbMax"
         ],
         "projectType": "native",
         "resources": {
