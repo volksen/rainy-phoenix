@@ -1,5 +1,5 @@
-var Clay = require('pebble-clay');
-var clayConfig = require('./config.js');
+var Clay = require('@rebble/clay');
+var clayConfig = require('./config');
 var clay = new Clay(clayConfig);
 
 ///changed from dark sky to open-meteo

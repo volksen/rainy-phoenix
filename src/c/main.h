@@ -27,3 +27,4 @@ typedef struct ClaySettings
   char rainProbNowString[20];
   char rainProbMaxForeString[20];
 } __attribute__((__packed__)) ClaySettings;
+

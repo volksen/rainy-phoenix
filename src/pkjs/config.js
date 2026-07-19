@@ -10,7 +10,7 @@ module.exports = [
       {
         "type": "heading",
         "defaultValue": "Theme settings"
-      }
+      },
       {
         "type": "toggle",
         "messageKey": "AddZero12h",
