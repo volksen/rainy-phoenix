@@ -3,6 +3,7 @@ var clayConfig = require('./config.js');
 var clay = new Clay(clayConfig);
 
 ///changed from dark sky to open-meteo
+// TODO check weather code from openmeteo and font /day night
 var ds_iconToId = {
     //daytime
     '0,1': 101, //0 = clear sky ok
@@ -65,9 +66,6 @@ var ds_iconToId = {
 };
 
 // --- Helper Functions ---
-/**
- * Robust network helper that catches HTTP errors before passing to callbacks
- */
 var xhrRequest = function (url, type, callback) {
     var xhr = new XMLHttpRequest();
     xhr.onload = function () {
@@ -121,7 +119,7 @@ function fetchWeatherData(pos) {
                 "RainProbMaxFore": json.daily.precipitation_probability_max[0] !== null ? Math.round(json.daily.precipitation_probability_max[0]) : 0
             };
 
-            console.log("Current Precip scaled: " + pData.PrecipAmount + ", Daily Sum scaled: " + pData.DailyPrecipSum);
+            console.log("Current Rain scaled: " + pData.RainNow + ", Rain daily Sum scaled: " + pData.RainSumFore);
 
             Pebble.sendAppMessage(pData,
                 function () { console.log("Weather sent successfully!"); },
@@ -135,7 +133,7 @@ function fetchWeatherData(pos) {
 
 
 function locationError(err) {
-    console.log("Error requesting geolocation!");
+    console.warn(`Error requesting geolocation! ERROR(${err.code}): ${err.message}`);
     fetchWeatherData(null);
 }
 
@@ -144,7 +142,7 @@ function getWeather() {
         fetchWeatherData,
         locationError,
         {
-            enableHighAccuracy: true,
+            enableHighAccuracy: false,
             timeout: 15000,
             maximumAge: 60000 // 1 minute (allows a slightly cached location to save battery)
         }
